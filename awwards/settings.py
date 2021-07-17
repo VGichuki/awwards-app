@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myawwards.apps.MyawwardsConfig',
     'bootstrap3',
+    'pyuploadcare.dj',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+UPLOADCARE = {
+    'pub_key': '34b548923n4',
+    'secret': '987v0783h567',
+}
 
 ROOT_URLCONF = 'awwards.urls'
 
