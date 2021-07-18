@@ -1,3 +1,4 @@
+from myawwards.models import Project
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
@@ -5,6 +6,8 @@ from .forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
+from .models import Project,Profile
+from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 @login_required(login_url='login')
@@ -46,3 +49,16 @@ def loginPage(request):
 def logoutUser(request):
     logout(request)
     return redirect('login')
+
+@login_required(login_url='login')
+def search(request):
+    if 'serch_term' in request.GET and request.GET['search_term']:
+        term=request.GET.get('search_term')
+        try:
+            projects=Project.search_project(term)
+            message=f'{term}'
+            title=term
+            return redirect(request,'search.html', {'message':message,'title':title, 'projects':projects})
+        except Project.DoesNotExist:
+            message=f'{term}'
+            return redirect(request,'search.html', {'message':message,'title':title})

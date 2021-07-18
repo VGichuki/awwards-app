@@ -25,11 +25,22 @@ class Project(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='project')
     posted_on=models.DateField(auto_now_add=True)
 
+    class Meta:
+        ordering=['posted_on']
+
     def __str__(self):
         return self.title
 
     def save_project(self):
         self.save()
+
+    def delete_project(self):
+        self.delete()
+
+    @classmethod
+    def get_all_projects(cls):
+        projects=cls.objects.order_by('-id')
+        return projects
 
 
     

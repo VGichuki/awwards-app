@@ -1,0 +1,15 @@
+{%extends 'base.html'%} 
+{% load bootstrap3 %}
+{% load static %}
+{% block content %}
+<div class="container">
+  <div class="row">
+      {% if projects %}
+      <p>Found {{projects|length}} projects related to {{message}}</p>
+      {% else %}
+      <p>Found 0 projects related to {{message}}</p>
+      {% endif %}
+
+  </div>
+</div>
+{% endblock %}
