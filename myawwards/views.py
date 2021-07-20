@@ -3,7 +3,7 @@ from myawwards.models import Project
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
-from .forms import CreateUserForm
+from .forms import CreateUserForm, UpdateProfileForm,UpdateUserForm, PostForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
@@ -54,13 +54,35 @@ def logoutUser(request):
 def user_profile(request):
     return render(request, 'profile.html')
 
-@login_required(login_url='login')
 def update_user_profile(request, username):
     person=get_object_or_404(User, username=username)
     if request.user == person:
         return redirect('profile',username=request.user.username)
     context={'person':person}
     return redirect(request, 'updateprofile.html', context)
+
+@login_required(login_url='login')
+def edit_user_profile(request, username):
+    user = User.objects.get(username=username)
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('profile', user.username)
+    else:
+        user_form = UpdateUserForm(instance = request.user)
+        profile_form = UpdateProfileForm(instance = request.user.profile)
+    context={'user_form':user_form, 'profile_form': profile_form}
+    return redirect(request, 'editprofile.html', context)
+
+
+
+
+
+
       
 
 
