@@ -1,5 +1,6 @@
+from django.contrib.auth.models import User
 from myawwards.models import Project
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm
@@ -52,6 +53,16 @@ def logoutUser(request):
 @login_required(login_url='login')
 def user_profile(request):
     return render(request, 'profile.html')
+
+@login_required(login_url='login')
+def update_user_profile(request, username):
+    person=get_object_or_404(User, username=username)
+    if request.user == person:
+        return redirect('profile',username=request.user.username)
+    context={'person':person}
+    return redirect(request, 'updateprofile.html', context)
+      
+
 
 
 # @login_required(login_url='login')
