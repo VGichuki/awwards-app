@@ -1,0 +1,28 @@
+{% extends 'base.html'%}
+{% load crispy_forms_tags%}
+{% load static %}
+{% load bootstrap3 %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <img class="" src="{{user.profile.profile_pic.url}}">
+             {% if form.errors %}
+             <p class="alert alert-danger">Something is incorrect</p>
+             {% endif %}
+
+             <div class="card">
+                 <div class="card-header"><h2><a>Post a project</a></h2></div>
+                 <div class="card-body">
+                     <form action="" method="POST"> 
+                         {% csrf_token%}
+                         {%crispy form%}
+                         <input type="submit" class="btn btn-sm btn-ligt" value="post">
+                     </form>
+                 </div>
+             </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
