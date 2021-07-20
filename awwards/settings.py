@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'myawwards.apps.MyawwardsConfig',
     'bootstrap3',
     'pyuploadcare.dj',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [

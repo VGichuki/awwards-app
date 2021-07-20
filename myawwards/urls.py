@@ -6,5 +6,6 @@ urlpatterns=[
     url('register/', views.registerPage, name = 'register'),
     url('login/', views.loginPage, name = 'login'),
     url('logout/', views.logoutUser, name = 'logout'),
-    url(r'^search/', views.search, name='search')
+    url('profile/', views.user_profile, name='userprofile'),
+    # url(r'^search/', views.search, name='search')
 ]

@@ -10,7 +10,6 @@ from .models import Project,Profile
 from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
-@login_required(login_url='login')
 def home(request):
     return render(request, 'home.html')
 
@@ -51,14 +50,21 @@ def logoutUser(request):
     return redirect('login')
 
 @login_required(login_url='login')
-def search(request):
-    if 'serch_term' in request.GET and request.GET['search_term']:
-        term=request.GET.get('search_term')
-        try:
-            projects=Project.search_project(term)
-            message=f'{term}'
-            title=term
-            return redirect(request,'search.html', {'message':message,'title':title, 'projects':projects})
-        except Project.DoesNotExist:
-            message=f'{term}'
-            return redirect(request,'search.html', {'message':message,'title':title})
+def user_profile(request):
+    return render(request, 'profile.html')
+
+
+# @login_required(login_url='login')
+# def search(request):
+#     if 'serch_term' in request.GET and request.GET['search_term']:
+#         term=request.GET.get('search_term')
+#         try:
+#             projects=Project.search_project(term)
+#             message=f'{term}'
+#             title=term
+#             return redirect(request,'search.html', {'message':message,'title':title, 'projects':projects})
+#         except Project.DoesNotExist:
+#             message=f'{term}'
+#             return redirect(request,'search.html', {'message':message,'title':title})
+
+
