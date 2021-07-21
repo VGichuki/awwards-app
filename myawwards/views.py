@@ -21,6 +21,12 @@ class ProjectList(APIView):
         serializers = ProjectSerializer(all_projects, many=True)
         return Response(serializers.data)
 
+class ProfileList(APIView):
+    def get(self, request, format=None):
+        all_users = Profile.objects.all()
+        serializers = ProfileSerializer(all_users, many=True)
+        return Response(serializers.data)
+
 
 def home(request):
     project = Project.objects.all()
