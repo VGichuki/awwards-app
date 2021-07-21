@@ -44,7 +44,7 @@ def registerPage(request):
                 messages.success(request, 'Welcome' + user)
                 return redirect('login')
         context={'form': form}
-        return redirect(request,'register.html', context)
+        return render(request,'register.html', context)
 
 def loginPage(request):
     if request.user.is_authenticated:
