@@ -1,18 +1,24 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 
 {% block content %}
 <div class="container">
-    <div class="row">
-        <div class="card">
-            {% for project in project %}
-            <img src="{{project.image.url}}" alt="">
-            <p>Title:{{project.title}}</p>
-            <p>Description:{{project.description}}</p>
-            <p>Date:{{project.posted_on}}</p>
-            {%endfor%}
-
-        </div>
-    </div>
+    {% for project in project %}
+ <div class="row">
+     <div class="card">
+        <div class="col-md-4">
+            <div class="card" style="" >
+             <a href=""><img src="{{project.image.url}}" class="card-img-top" alt="" width="200px"> </a>
+             <div class="card-body">
+             <h3>{{project.title}}</h3>
+              <p class="card-text">{{project.description}}</p>
+              <p class="card-text">{{project.posted_on}}</p>
+                <button class="btn btn-sm btn-light"><a href="{{project.link}}" target="_blank">project link</a></button>
+     </div>
+      
+      </div>
+     </div>
+   </div>
+   {% endfor %}
+  </div>
 </div>
-
 {% endblock %}
