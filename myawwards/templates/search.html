@@ -1,15 +1,39 @@
-<!-- {%extends 'base.html'%} 
+{%extends 'base.html'%} 
 {% load bootstrap3 %}
 {% load static %}
+
 {% block content %}
 <div class="container">
   <div class="row">
       {% if projects %}
       <p>Found {{projects|length}} projects related to {{message}}</p>
       {% else %}
-      <p>Found 0 projects related to {{message}}</p>
+      <p>{{message}}</p>
       {% endif %}
 
   </div>
+
+  <div class="row">
+    {% for project in projects%}
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body">
+        <a>
+          <p style="text-align:center;">{{project.title}}</p>
+            <img class="card-img-top mb-10" src="{{project.image.url}}">
+      </a>
+        </div>
+      <div class="card-body">
+        <div class="card-text">
+          <p style="margin-top:-60px;">{{project.description}} </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  {%endfor%}
+
+  </div>
 </div>
-{% endblock %} -->
+{% endblock %}

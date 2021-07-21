@@ -12,7 +12,7 @@ from .models import Project,Profile, Rating
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializer import ProfileSerializer, ProjectSerializer, UserSerializer
+from .serializer import ProfileSerializer, ProjectSerializer
 
 # Create your views here.
 class ProjectList(APIView):
@@ -26,7 +26,6 @@ class ProfileList(APIView):
         all_users = Profile.objects.all()
         serializers = ProfileSerializer(all_users, many=True)
         return Response(serializers.data)
-
 
 def home(request):
     project = Project.objects.all()
@@ -109,6 +108,19 @@ def project(request):
         form = PostForm()
     return render(request, 'new_post.html', {'form': form})
 
+@login_required(login_url='login')
+def search(request):
+    if 'serch_term' in request.GET and request.GET['search_term']:
+       search = request.GET.get('search_term')
+       projects = Project.search_by_project_name(search)
+       message = f'{search}'
+       context = {"projects": projects, "search": search}
+       return render(request, 'search.html', context)
+    else:
+        message = 'Cannot find the project'
+        return render(request, 'search.html', {'message': message})
+
+
 # @login_required(login_url='login')
 # def ratings(request, project):
 #     project = Project.objects.get(title=project)
@@ -153,18 +165,5 @@ def project(request):
 
 
     
-
-# @login_required(login_url='login')
-# def search(request):
-#     if 'serch_term' in request.GET and request.GET['search_term']:
-#         term=request.GET.get('search_term')
-#         try:
-#             projects=Project.search_project(term)
-#             message=f'{term}'
-#             title=term
-#             return redirect(request,'search.html', {'message':message,'title':title, 'projects':projects})
-#         except Project.DoesNotExist:
-#             message=f'{term}'
-#             return redirect(request,'search.html', {'message':message,'title':title})
 
 
