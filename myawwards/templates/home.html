@@ -5,8 +5,8 @@
     <div class="row">
         <div class="card">
             {% for project in project %}
-            <h2>{{project.title}}</h2>
             <img src="{{project.image.url}}" alt="">
+            <p>Title:{{project.title}}</p>
             <p>Description:{{project.description}}</p>
             <p>Date:{{project.posted_on}}</p>
             {%endfor%}

@@ -92,23 +92,48 @@ def project(request):
         form = PostForm()
     return render(request, 'new_post.html', {'form': form})
 
-# @login_required(login_url='login')
-# def ratings(request, project):
-#     project = Project.objects.get(title=project)
-#     ratings = Rating.objects.filter(user=request.user, project=project).first()
-#     rating_status = None
-#     if ratings is None:
-#         rating_status = False
-#     else:
-#         rating_status = True
-#     if request.method == 'POST':
-#         form = RatingsForm(request.POST)
-#         if form.is_valid():
-#             rate = form.save(commit=False)
-#             rate.user = request.user
-#             rate.project = project
-#             rate.save()
-#             project_ratings = Rating.objects.filter(project=project)
+@login_required(login_url='login')
+def ratings(request, project):
+    project = Project.objects.get(title=project)
+    ratings = Rating.objects.filter(user=request.user, project=project).first()
+    rating_status = None
+    if ratings is None:
+        rating_status = False
+    else:
+        rating_status = True
+    if request.method == 'POST':
+        form = RatingsForm(request.POST)
+        if form.is_valid():
+            rate = form.save(commit=False)
+            rate.user = request.user
+            rate.project = project
+            rate.save()
+            project_ratings = Rating.objects.filter(project=project)
+
+            design_ratings = [design.design for design in project_ratings]
+            design_average = sum(design_ratings)/ len(design_ratings)
+
+            usability_ratings = [usability.usability for usability in project_ratings]
+            usability_average = sum(usability_ratings)/ len(usability_ratings)
+
+            content_ratings = [content.content for content in project_ratings]
+            content_average = sum(content_ratings) / len(content_ratings)
+
+            score = (design_average + usability_average + content_average)
+            print(score)
+            rate.design_average = round(design_average, 2)
+            rate.usability_average = round(usability_average, 2)
+            rate.content_average = round(content_average, 2)
+            rate.score = round(score, 2)
+            rate.save()
+            return HttpResponseRedirect(request.path_info)
+    else:
+        form = RatingsForm()
+    context ={'project': project, "rating_form" : form, 'rating_status': rating_status}
+    return redirect(request, 'project.html', context)
+
+
+
 
     
 
