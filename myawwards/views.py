@@ -12,7 +12,8 @@ from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 def home(request):
-    return render(request, 'home.html')
+    project = Project.objects.all()
+    return render(request, 'home.html', {'project': project})
 
 def registerPage(request):
     if request.user.is_authenticated:
@@ -78,14 +79,20 @@ def edit_user_profile(request, username):
     context={'user_form':user_form, 'profile_form': profile_form}
     return redirect(request, 'editprofile.html', context)
 
-
-
-
-
-
-      
-
-
+@login_required(login_url='login')
+def project(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = PostForm(request.POST or None, request.FILES)
+        if form.is_valid():
+            project=form.save(commit=False)
+            project.user=current_user
+            project.save()
+        return redirect('home')
+    else:
+        form = PostForm()
+    return redirect(request, 'new_post.html', {'form':form})
+    
 
 # @login_required(login_url='login')
 # def search(request):

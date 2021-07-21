@@ -19,5 +19,6 @@ from django.conf.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('myawwards.urls'))
+    path('',include('myawwards.urls')),
+    path('ratings/', include('star_ratings.urls', namespace='ratings')),
 ]

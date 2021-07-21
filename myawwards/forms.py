@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from .models import Project,Profile
 from pyuploadcare.dj.forms import ImageField
 
+
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = User

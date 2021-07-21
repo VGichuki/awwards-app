@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'pyuploadcare.dj',
     'crispy_forms',
+    'star_ratings'
 ]
 
 MIDDLEWARE = [

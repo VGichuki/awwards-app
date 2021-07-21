@@ -7,19 +7,17 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <img class="" src="{{user.profile.profile_pic.url}}">
-             {% if form.errors %}
-             <p class="alert alert-danger">Something is incorrect</p>
-             {% endif %}
+           <div class="card">
+               <h2><strong>{{project.title}}</strong></h2>
+               <p><small>{{project.details}}</small></p>
+           </div>
+           <form action="" method="POST" enctype="multipart/form-data">
+            {%csrf_token%}
 
-             <div class="card">
-                 <div class="card-header"><h2><a>Post a project</a></h2></div>
-                 <div class="card-body">
-                     <form action="" method="POST"> 
-                         {% csrf_token%}
-                         {%crispy form%}
-                         <input type="submit" class="btn btn-sm btn-ligt" value="post">
-                     </form>
+            {% crispy_form form%}
+            <input type="sumit" class="btn btn-sm" value="POST">
+
+           </form>
                  </div>
              </div>
         </div>

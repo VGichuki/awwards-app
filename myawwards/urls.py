@@ -13,7 +13,7 @@ urlpatterns=[
     url('profile/', views.user_profile, name='profile'),
     url('profile/<username>/', views.update_user_profile, name='userprofile'),
     url('profile/<username>/edit/', views.edit_user_profile, name='editprofile'),
-    path('post/', views.post_project, name='new_post'),
+    path('project/', views.project, name='project'),
     # url(r'^search/', views.search, name='search')
 ]
 if settings.DEBUG:
