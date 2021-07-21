@@ -8,10 +8,16 @@
 <body>
     <nav class="navbar navbar-light" style="background-color: aqua;">
         <div class="container-fluid">
-          <a class="navbar-header" href="" style="color: black; font-family: Arial, Helvetica, sans-serif; font-size: larger;">WOW AWWARDS</a>
+          <div class="col-sm-4 col-md-4 navbar-center">
+          <a class="navbar-center" href="" style="color: black; font-family: Arial, Helvetica, sans-serif; font-size: larger;"></a>
         </div>
-
+        </div>
         <div class="col-sm-4 col-md-4 navbar-right">
+          <span><a href="{%url 'project'%}">Post</a></span>
+        </div>
+        
+
+        <div class="col-sm-4 col-md-4 navbar-left">
           <form class="navbar-form" role="search" action="{% url 'search' %}">
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Search " name="search_term">
