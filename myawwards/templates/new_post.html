@@ -3,24 +3,13 @@
 {% load static %}
 {% load bootstrap3 %}
 
-{% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-3">
-           <div class="card">
-               <h2><strong>{{project.title}}</strong></h2>
-               <p><small>{{project.details}}</small></p>
-           </div>
-           <form action="" method="POST" enctype="multipart/form-data">
-            {%csrf_token%}
+{% block content %} 
+<form  action="" method="POST" enctype="multipart/form-data">
+  {%csrf_token%}
+  {%bootstrap_form form%}
+  <input type="submit" class="btn btn-success btn-lg" value="Post">
+</form>
 
-            {% crispy_form form%}
-            <input type="sumit" class="btn btn-sm" value="POST">
+{%endblock%}
+   
 
-           </form>
-                 </div>
-             </div>
-        </div>
-    </div>
-</div>
-{% endblock %}

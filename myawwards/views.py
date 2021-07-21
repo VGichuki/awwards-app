@@ -1,13 +1,13 @@
 from django.contrib.auth.models import User
 from myawwards.models import Project
 from django.shortcuts import get_object_or_404, render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
-from .forms import CreateUserForm, UpdateProfileForm,UpdateUserForm, PostForm
+from .forms import CreateUserForm, UpdateProfileForm,UpdateUserForm, PostForm , RatingsForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
-from .models import Project,Profile
+from .models import Project,Profile, Rating
 from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
@@ -28,7 +28,7 @@ def registerPage(request):
                 messages.success(request, 'Welcome' + user)
                 return redirect('login')
         context={'form': form}
-        return render(request,'register.html', context)
+        return redirect(request,'register.html', context)
 
 def loginPage(request):
     if request.user.is_authenticated:
@@ -78,20 +78,38 @@ def edit_user_profile(request, username):
         profile_form = UpdateProfileForm(instance = request.user.profile)
     context={'user_form':user_form, 'profile_form': profile_form}
     return redirect(request, 'editprofile.html', context)
-
 @login_required(login_url='login')
 def project(request):
     current_user = request.user
     if request.method == 'POST':
         form = PostForm(request.POST or None, request.FILES)
         if form.is_valid():
-            project=form.save(commit=False)
-            project.user=current_user
+            project = form.save(commit=False)
+            project.user = current_user
             project.save()
-        return redirect('home')
+            return redirect('home')
     else:
         form = PostForm()
-    return redirect(request, 'new_post.html', {'form':form})
+    return render(request, 'new_post.html', {'form': form})
+
+# @login_required(login_url='login')
+# def ratings(request, project):
+#     project = Project.objects.get(title=project)
+#     ratings = Rating.objects.filter(user=request.user, project=project).first()
+#     rating_status = None
+#     if ratings is None:
+#         rating_status = False
+#     else:
+#         rating_status = True
+#     if request.method == 'POST':
+#         form = RatingsForm(request.POST)
+#         if form.is_valid():
+#             rate = form.save(commit=False)
+#             rate.user = request.user
+#             rate.project = project
+#             rate.save()
+#             project_ratings = Rating.objects.filter(project=project)
+
     
 
 # @login_required(login_url='login')

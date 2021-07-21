@@ -11,7 +11,7 @@ from django.dispatch import receiver
 class Profile(models.Model):
     user=models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     bio=models.CharField(max_length=500,blank=True,default='No Bio')
-    profile_pic=ImageField(blank=True,manual_crop="")
+    profile_pic=models.ImageField(blank=True,upload_to='images/', default='')
     contact=models.EmailField(max_length=30,blank=True)
 
     def __str__(self):
@@ -22,7 +22,7 @@ class Profile(models.Model):
 
 class Project(models.Model):
     title=models.CharField(max_length=300)
-    image=ImageField(manual_crop='')
+    image=models.ImageField(upload_to='projects/')
     url=models.URLField(max_length=1000)
     description=models.TextField(max_length=1000)
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='project')

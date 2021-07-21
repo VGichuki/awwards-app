@@ -21,7 +21,6 @@ class UpdateProfileForm(forms.ModelForm):
         fields = ['user', 'profile_pic', 'bio', 'contact']
 
 class PostForm(forms.ModelForm):
-    image = ImageField(label='')
     class Meta:
         model = Project
         fields = ['title', 'image', 'url', 'description']
