@@ -8,6 +8,11 @@
         <p>{{person.username}}</p>
         <p>{{person.email}}</p>
     </div>
-
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{user_form|crispy}}
+        {{profile_form|crispy}}
+        <input type="submit" class="btn btn-sm btn-light" value="save">
+    </form>
 </div>
 {% endblock %}

@@ -92,8 +92,9 @@ def edit_user_profile(request, username):
     else:
         user_form = UpdateUserForm(instance = request.user)
         profile_form = UpdateProfileForm(instance = request.user.profile)
-    context={'user_form':user_form, 'profile_form': profile_form}
-    return redirect(request, 'editprofile.html', context)
+        context={'user_form':user_form, 'profile_form': profile_form}
+        return render(request, 'updateprofile.html', context)
+
 @login_required(login_url='login')
 def project(request):
     current_user = request.user
@@ -119,6 +120,11 @@ def search(request):
     else:
         message = 'Cannot find the project'
         return render(request, 'search.html', {'message': message})
+
+@login_required(login_url='login')
+def oneproject(request, id):
+    project = Project.objects.get(id=id)
+    return render(request, 'oneproject.html', {'project': project})
 
 
 # @login_required(login_url='login')

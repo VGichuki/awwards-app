@@ -11,12 +11,13 @@ urlpatterns=[
     path('login/', views.loginPage, name = 'login'),
     path('logout/', views.logoutUser, name = 'logout'),
     url('profile/', views.user_profile, name='profile'),
-    url('profile/<username>/', views.update_user_profile, name='userprofile'),
+    # url('profile/<username>/', views.update_user_profile, name='userprofile'),
     url('profile/<username>/edit/', views.edit_user_profile, name='editprofile'),
     path('project/', views.project, name='project'),
     path('api/projects/', views.ProjectList.as_view()),
     path('api/profiles/', views.ProfileList.as_view()),
-    url(r'^search/', views.search, name='search')
+    url(r'^search/', views.search, name='search'),
+    path('project/<int:id>/', views.oneproject, name='oneproject'),
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

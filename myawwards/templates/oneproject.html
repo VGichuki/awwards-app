@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load ratings %}
+{% block content %}
+
+<h3 class="text-center">Project</h3>
+<hr>
+    <div class = container>
+        <div class="card" >
+            <img class="card-img-top" width="500" height="500" src="{{ project.image.url }}" alt="">
+            <div class="card-body">
+              <h4 class="text-center"> <b>{{project.title}}</b></h4>
+              <p class="card-text">{{project.description}}</p>
+              <a href="{{project.link}}" target="_blank">{{project.link}}</a>
+              <p class="card-text"><small class="text-muted">{{project.posted_on|date}}</small></p>
+            </div>
+          </div>
+
+          <article class="text-center" style="font-size: larger;">How does {{project.title}} rate based on:</article>
+    <div class="row text-center mb-4">
+        <div class="col-md-4">
+            <p><strong>Design</strong></p>
+            <span>{% ratings project icon_height=20 icon_width=20 %}</span>
+
+        </div>
+        <div class="col-md-4">
+            <p><strong>Usability</strong></p>
+            <span>{% ratings project icon_height=20 icon_width=20 %}</span>
+
+        </div>
+        <div class="col-md-4">
+            <p><strong>Content</strong></p>
+            <span>{% ratings project icon_height=20 icon_width=20 %}</span>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
