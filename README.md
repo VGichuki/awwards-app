@@ -4,7 +4,7 @@
 # Description 
 This is a Django application where a user can rate and post different projects.
 ##  Live Link 
- Click [View Site]()  to visit the site
+ Click [View Site](https://awwardsapp21.herokuapp.com/)  to visit the site
 ## User Story 
 * View different projects that interest them
 * Search for different projects
@@ -56,6 +56,7 @@ Open the application on your browser `127.0.0.1:8000`.
 ## Known Bugs
 * The profile page doe not entail the users account details.
 * The rating and total scores of a project are not functional.
+* Tests are not running.
 ## License
 * *MIT License:*
 * Copyright (c) 2021 **Vivian Gichuki**
