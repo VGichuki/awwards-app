@@ -20,6 +20,7 @@ class Profile(models.Model):
     def save_profile(self):
         self.save()
 
+
 class Project(models.Model):
     title=models.CharField(max_length=300)
     image=models.ImageField(upload_to='projects/')
